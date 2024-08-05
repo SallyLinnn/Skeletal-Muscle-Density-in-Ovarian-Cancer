@@ -8,6 +8,8 @@ This study was conducted using Python 3.9. The machine learning models were impl
 
 ## Usage
 ### handover_ml_shap.py
+### Main Function
+Perform modeling and prediction, and use SHAP to explain the prediction results.
 - **Data Preprocessing**: Includes steps for data cleaning, standardization, and feature engineering.
 - **Modeling**: Uses various machine learning models (CatBoostClassifier, RandomForestClassifier, SVC, XGBClassifier).
 - **Bootstrap Training**: Implements bootstrap training to ensure model robustness.
@@ -16,6 +18,8 @@ This study was conducted using Python 3.9. The machine learning models were impl
 - **Note**: Since the analysis data consists of hospital patient data, it is not provided. To analyze your own data, replace the data in the script with your own dataset.
 
 ### handover_roc_plot.py
+### Main Function
+Present the results after bootstrapping using ROC curves.
 - **Data Preprocessing**: Includes methods for cleaning and preparing data for ROC analysis.
 - **Plotting**: Provides functions to generate ROC plots for visualizing model performance.
 
