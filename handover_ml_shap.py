@@ -231,7 +231,6 @@ print('accuracy_predict:',Acc)
 yPred = best_RF.predict_proba(dataXZ)[:,1]
 print('auc_predict:',roc_auc_score(yX, yPred),"\n")
 
-#%%
 # Import the SHAP library for model explanation
 import shap
 shap.initjs()
