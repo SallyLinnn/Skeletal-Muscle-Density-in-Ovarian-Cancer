@@ -1,7 +1,7 @@
 # Skeletal Muscle Density in Ovarian-Cancer
 
 ## Description
-Use machine learning to predict whether ovarian cancer patients have muscle attenuation, and use SHAP to explain the prediction results.
+Use machine learning to predict whether ovarian cancer patients have muscle radiodensity loss, and use SHAP to explain the prediction results.
 
 ## Usage
 ### handover_ml_shap.py
