@@ -231,27 +231,30 @@ print('accuracy_predict:',Acc)
 yPred = best_RF.predict_proba(dataXZ)[:,1]
 print('auc_predict:',roc_auc_score(yX, yPred),"\n")
 
+# SHAP
 # Import the SHAP library for model explanation
 import shap
 shap.initjs()
 
+# Note:replace 'trainingSetZ' with the name of your own dataset
 # Assuming 'best_SVM' and 'best_RF' are already defined models
 # If your model is kernel-based (e.g., SVM)
 model = best_SVM
-explainer = shap.KernelExplainer(model.predict, inValidatingSetZ)
-shapValues = explainer.shap_values(inValidatingSetZ)
+explainer = shap.KernelExplainer(model.predict, trainingSetZ)
+shapValues = explainer.shap_values(trainingSetZ)
 
 # If your model is tree-based (e.g., Random Forest)
 model = best_RF
 explainer = shap.TreeExplainer(model)
-shapValues = explainer.shap_values(inValidatingSetZ)
+shapValues = explainer.shap_values(trainingSetZ)
 
 # Generate SHAP summary plot
-shap.summary_plot(shapValues, inValidatingSetZ)
+shap.summary_plot(shapValues, trainingSetZ)
 
 # Generate SHAP bar plot for top 10 features
-shap.summary_plot(shapValues, inValidatingSetZ, plot_type='bar', max_display=10, sort=True)
+shap.summary_plot(shapValues, trainingSetZ, plot_type='bar', max_display=10, sort=True)
 
+# denpendence plot
 # Define target features for dependence plots
 tg = ["Residual disease",
       "Ascites",
@@ -265,12 +268,13 @@ tg = ["Residual disease",
 for i in range(3):
     shap.dependence_plot("Residual disease", 
                          shapValues,
-                         inValidatingSet, 
-                         feature_names=inValidatingSet.columns,
+                         trainingSet, 
+                         feature_names=trainingSet.columns,
                          interaction_index=tg[0], 
                          alpha=0.8,
                          show=False)                       
 
+# force plot
 # Import math library for log odds conversion
 import math
 
@@ -283,10 +287,10 @@ def logodds_to_prob(logit):
         return odds / (1 + odds)
 
 # Function to generate and save SHAP force plots
-def shap_plot_save(model):
+def shap_plot(model):
     for j in range(0, 1000): 
-        if trainingSetZ.index[j] in list_id:
-            print(str(trainingSetZ.index[j]))
+        if trainingSetZ.index[j] in list_id: # trainingSetZ: you can replace it with your own dataset
+            print(str(trainingSetZ.index[j])) # trainingSetZ: you can replace it with your own dataset
             explainer = shap.TreeExplainer(model)
             shap_values = explainer.shap_values(trainingSetZ)
             shap_values = np.round(shap_values, 4)
@@ -299,4 +303,4 @@ def shap_plot_save(model):
             plt.tight_layout()
 
 # Call the function to generate and save SHAP force plots for the given model
-shap_plot_save(model)
+shap_plot(model)
